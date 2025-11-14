@@ -60,8 +60,6 @@ void processOrderData(std::vector<std::string> *ptrOrderDataText, std::vector<Or
 
         if (tempOO.size() == 5) { // We have the right amount of info
             orderType = stoobt(tempOO[2]);
-            // (*ptrOrders).push_back(OrderBookEntry{tempOO[0], tempOO[1], orderType,
-            //                                       stod(tempOO[3]), stod(tempOO[4])});
             (*ptrOrders).push_back(OrderBookEntry{
                 stod(tempOO[3]), stod(tempOO[4]), tempOO[0], tempOO[1], orderType
             });

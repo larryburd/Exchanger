@@ -9,4 +9,4 @@
 
 enum class OrderBookType {bid, ask, error};
 
-#endif
+#endif // !ORDER_BOOK_TYPE
