@@ -24,6 +24,7 @@ class OrderBookEntry {
         std::string getTimestamp();
         std::string getProducts();
         OrderBookType getOrderType();
+        static OrderBookType stoobt(std::string);
         std::string getOrderTypeText();
 
         void setAmount(double);

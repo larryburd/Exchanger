@@ -64,3 +64,16 @@ void OrderBookEntry::setOrderType(OrderBookType val) {
     orderType = val;
 }
 
+/**
+ * Transforms a string of value "ask" or "bid" to the corrisponding OrderBookType value
+ */
+OrderBookType OrderBookEntry::stoobt(std::string orderTypeText) {
+    if (orderTypeText == "bid") {
+        return OrderBookType::bid;
+    } else if (orderTypeText == "ask"){
+        return OrderBookType::ask;
+    } else {
+        return OrderBookType::error;
+    }
+}
+

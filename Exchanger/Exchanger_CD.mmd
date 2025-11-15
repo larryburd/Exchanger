@@ -1,0 +1,73 @@
+```mermaid
+classDiagram
+
+	OrderBookEntry ..> FileParser
+	OrderBookEntry ..> ExchangerMain
+
+	class OrderBookType {
+		<<enum>>
+		ask
+		bid
+	}
+   
+	class ExchangerMain {
+		-OrderBookEntry[] orders
+		-enum menOpt
+		
+		-printMenu()
+		-getUserOption(): int
+		-vprocessUserOption(int, *OrderBookEntry[])
+		-invalidSelectionNotificiation()
+		-printhelp()
+		-printStats(*OrderBookEntry[]>
+		-makeOffer()
+		-makeBid()
+		-printWallet()
+		-nextTimeStep()
+
+		+ExchangerMain(vector<OrderBookEntry>)
+		+init()
+	}
+	
+	class FileParser {
+		-ifstream csvFile
+		-string filepath
+		-OrderBookEntry[] orders
+
+		-fileIsOpen() bool
+		-openFile()
+		-closeFile()
+		-parseLines()
+		-tokenise(csvLine, separator) string[]
+		-parseAndAddOrder(string[] orderTokens)
+
+		+FileParser(string filepath)
+		+~FileParser()
+		+getOrders() OrderBookEntry[]
+	}
+	
+	class OrderBookEntry {
+		<<structure>>
+		-double amount
+		-double price
+		-string timestamp
+		-string products
+		-OrderBookType orderType
+
+		+stoobt(string)$ OrderBookType
+
+		+OrderBookEntry(double, double, string, string, OrderBookEntry)
+		+getAmount() double
+		+getPrice() double
+		+getTimestamp() string
+		+getProducts() string
+		+getOrderType OrderBookType
+		+getOrderTypeText() string
+
+		+setAmount(double)
+		+setPrice(double)
+		+setTimestamp(string)
+		+setProducts(string)
+		+setOrderType(OrderBookType)
+	}
+```

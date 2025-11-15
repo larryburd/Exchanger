@@ -8,19 +8,24 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <fstream>
 #include "src/OrderBookType.hpp"
 #include "src/OrderBookEntry.hpp"
 #include "src/ExchangerMain.hpp"
+#include "src/FileParser.hpp"
 
 std::vector<std::string> readOrderData();
 void processOrderData(std::vector<std::string>*, std::vector<OrderBookEntry>*);
 OrderBookType stoobt(std::string);
 
 int main() {
+    const std::string filepath = "/Users/laurenceburden/Documents/Development/Exchanger/Exchanger/data/market_data.csv";
     std::vector<std::string> orderDataText = readOrderData();
+    FileParser parser{filepath};
     std::vector<OrderBookEntry> orders;
     
-    processOrderData(&orderDataText, &orders);
+    //processOrderData(&orderDataText, &orders);
+    orders = parser.getOrders();
     ExchangerMain main(orders);
 
     main.init();
@@ -31,9 +36,20 @@ int main() {
 // REGION: Function implementations
 std::vector<std::string> readOrderData() {
     std::vector<std::string> orderData;
-
-    orderData.push_back("2020/03/17 17:01:24.884492,ETH/BTC,bid,0.02187308,7.44564869");
-    orderData.push_back("2020/03/17 17:01:24.884492,ETH/BTC,bid,0.02187307,3.467434");
+    std::ifstream csvFile{};
+    std::string line;
+    
+    csvFile.open("/Users/laurenceburden/Documents/Development/Exchanger/Exchanger/data/market_data.csv");
+    
+    if (csvFile.is_open()) {
+        while(std::getline(csvFile, line)) {
+            orderData.push_back(line);
+        }
+    } else {
+        std::cout << "ERROR READING FILE" << std::endl;
+    }
+    
+    csvFile.close();
 
     return orderData;
 }
